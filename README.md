@@ -19,6 +19,8 @@ full contents of each article, so this will let you view that.
 To use Stella, simply click "Select JSON file" and select the JSON file from
 your Takeout archive.
 
+A live instance of Stella is hosted on my site at <http://stella.s.zeid.me/>.
+
 
 
 
