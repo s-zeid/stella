@@ -59,3 +59,7 @@ article:first-child {
 article header > :not(.collapsed) {
  font-weight: bold;
 }
+
+blockquote p {
+ font-size: inherit;
+}
