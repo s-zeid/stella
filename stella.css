@@ -63,3 +63,7 @@ article header > :not(.collapsed) {
 blockquote p {
  font-size: inherit;
 }
+
+img {
+ vertical-align: bottom;
+}
