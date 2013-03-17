@@ -56,8 +56,22 @@ article:first-child {
  border-top-style: none !important;
 }
 
-article header > :not(.collapsed) {
+article > header > a > .row {
+ margin-left: 0;
+}
+article > header > a:not(.collapsed) > .row > .title {
  font-weight: bold;
+}
+article > header > a > .row > .date, article > header > a > .row > .feed {
+ color: #888;
+}
+article > header > a > .row > .feed {
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+}
+article > header > a > .row > .date {
+ text-align: right;
 }
 
 a:focus {

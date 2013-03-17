@@ -62,17 +62,29 @@ function parseJSON(json) {
   var body = {"direction": "ltr", "content": ""};
   if      (item.content) body = item.content;
   else if (item.summary) body = item.summary;
-  ARTICLES[id] = body;
-  $article = $("<article class='accordion-group'></article>");
-  $header  = $("<header class='accordion-heading accordion-toggle'></header>");
-  $toggle  = $("<a class='accordion-toggle collapsed' data-toggle='collapse'></a>");
-  $toggle.attr("href", "#" + id).html(item.title);
-  $toggle.on("click.stella", loadArticle);
-  $body    = $("<div class='accordion-body collapse'></div>").attr("id", id);
-  $content = $("<div class='accordion-inner'></div>");
+  ARTICLES[id] = {"item": item, "body": body};
+  var $article = $("<article class='accordion-group'></article>");
+  var $header  = $("<header class='accordion-heading accordion-toggle'></header>");
+  var $toggle  = $("<a class='accordion-toggle collapsed' data-toggle='collapse'></a>");
+  $toggle.attr("href", "#" + id).on("click.stella", loadArticle).append(headerText(item));
+  var $body    = $("<div class='accordion-body collapse'></div>").attr("id", id);
+  var $content = $("<div class='accordion-inner'></div>");
   $article.append($header.append($toggle)).append($body.append($content));
   $articles.append($article);
  }
+}
+
+function headerText(item) {
+ var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
+ var date = dateToLocalISOString(new Date(item.published * 1000));
+ var dateShort = date.match("^[0-9]{4}-[0-9]{2}-[0-9]{2}")[0];
+ var $row   = $("<span class='row'></span>");
+ var $feed  = $("<span class='span2 feed'></span>").text(origin.title);
+ $feed.attr("title", $feed.text());
+ var $title = $("<span class='span7 title'></span>").html(item.title);
+ $title.attr("title", $title.text());
+ var $date  = $("<span class='span2 date'></span>").html(dateShort).attr("title", date);
+ return $row.append($feed).append($title).append($date);
 }
 
 function loadArticle(id) {
@@ -80,12 +92,47 @@ function loadArticle(id) {
   id = $(this).attr("href").replace(/^#/, "");
   $(this).off("click.stella");
  }
- body = ARTICLES[id];
- $body = $("#"+id);
- $content = $body.children(".accordion-inner").html(body.content);
- $content.find("a").attr("target", "_blank");
+ var item = ARTICLES[id].item;
+ var body = ARTICLES[id].body;
+ var $body = $("#"+id);
+ var $inner = $body.children(".accordion-inner");
+ var $content = $("<div></div>").attr("id", id + "-content").html(body.content);
+ $inner.append(metaText(item)).append($content);
+ $inner.find("a").attr("target", "_blank");
  $body.css("direction", body.direction);
  console.log("Loaded " + id);
+}
+
+function metaText(item) {
+ var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
+ var sep = " \u00b7 "; // &middot;
+ var $meta = $("<p class='muted meta'></p>");
+ var $small = $("<small></small>").appendTo($meta);
+ // Feed
+ var $feed = $("<a href=''></a>").attr("href", origin.htmlUrl).text(origin.title);
+ $small.append("from ", $feed);
+ // Author
+ if (item.author)
+  $small.append(sep, "by ", item.author);
+ // Publish date
+ var date = dateToLocalISOString(new Date(item.published * 1000));
+ var dateShort = date.match("^[0-9]{4}-[0-9]{2}-[0-9]{2}")[0];
+ var $date = $("<time></time>").attr("datetime", date).attr("title", date).text(dateShort);
+ $small.append(sep, "published on ", $date);
+ // Star date
+ var starDate = dateToLocalISOString(new Date(Number(item.crawlTimeMsec)));
+ var starDateShort = starDate.match("^[0-9]{4}-[0-9]{2}-[0-9]{2}")[0];
+ var $starDate = $("<time></time>").attr("datetime", starDate).attr("title", starDate)
+                 .text(starDateShort);
+ $small.append(sep, "starred on ", $starDate);
+ // Original URL
+ if (item.alternate && item.alternate.length && item.alternate.length > 0
+     && item.alternate[0].href) {
+  var $original = $("<a href=''></a>").attr("href", item.alternate[0].href)
+                  .text("view original");
+  $small.append(sep, $original);
+ }
+ return $meta;
 }
 
 $(document).ready(function() {
@@ -127,3 +174,50 @@ function readFile(file, onload, dataURI, text) {
   reader.readAsBinaryString(file);
  return reader;
 }
+
+// Copypasta from MDN
+if (!Date.prototype.toISOString) {
+ (function() {
+  function pad(number) {
+   var r = String(number);
+   if (r.length === 1) {
+    r = '0' + r;
+   }
+   return r;
+  }
+  Date.prototype.toISOString = function() {
+   return this.getUTCFullYear()
+           + '-' + pad(this.getUTCMonth() + 1)
+           + '-' + pad(this.getUTCDate())
+           + 'T' + pad(this.getUTCHours())
+           + ':' + pad(this.getUTCMinutes())
+           + ':' + pad(this.getUTCSeconds())
+           + '.' + String((this.getUTCMilliseconds()/1000).toFixed(3)).slice(2, 5)
+           + 'Z';
+  };
+ }());
+}
+
+var dateToLocalISOString = (function() {
+ function pad(number) {
+  var r = String(number);
+  if (r.length === 1) {
+   r = '0' + r;
+  }
+  return r;
+ }
+ return function(date) {
+  var tzo = date.getTimezoneOffset();
+  return date.getFullYear()
+          + '-' + pad(date.getMonth() + 1)
+          + '-' + pad(date.getDate())
+          + 'T' + pad(date.getHours())
+          + ':' + pad(date.getMinutes())
+          + ':' + pad(date.getSeconds())
+          + '.' + String((date.getMilliseconds()/1000).toFixed(3)).slice(2, 5)
+          + ((tzo === 0) ? "Z" : (
+           ((tzo > 0) ? "-" : "+")
+           + pad(tzo / 60) + ":" + pad(tzo % 60)
+          ))
+ };
+}());
