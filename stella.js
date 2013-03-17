@@ -83,6 +83,7 @@ function loadArticle(id) {
  body = ARTICLES[id];
  $body = $("#"+id);
  $content = $body.children(".accordion-inner").html(body.content);
+ $content.find("a").attr("target", "_blank");
  $body.css("direction", body.direction);
  console.log("Loaded " + id);
 }
