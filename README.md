@@ -25,4 +25,4 @@ A live instance of Stella is hosted on my site at <http://stella.s.zeid.me/>.
 
 
 [notice]:   http://googlereader.blogspot.com/2013/03/powering-down-google-reader.html
-[takeout]:  https://www.google.com/takeout/?pli=1#custom:reader
+[takeout]:  https://goo.gl/zijsh
