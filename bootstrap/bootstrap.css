@@ -217,7 +217,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #3c0000;
+  color: #880000;
   text-decoration: underline;
 }
 .img-rounded {
@@ -2412,7 +2412,7 @@ input[type="submit"].btn.btn-mini {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #3c0000;
+  color: #880000;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3288,8 +3288,8 @@ input[type="submit"].btn.btn-mini {
 }
 .nav .dropdown-toggle:hover .caret,
 .nav .dropdown-toggle:focus .caret {
-  border-top-color: #3c0000;
-  border-bottom-color: #3c0000;
+  border-top-color: #880000;
+  border-bottom-color: #880000;
 }
 /* move down carets for tabs */
 .nav-tabs .dropdown-toggle .caret {
