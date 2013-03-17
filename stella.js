@@ -65,7 +65,7 @@ function parseJSON(json) {
   ARTICLES[id] = body;
   $article = $("<article class='accordion-group'></article>");
   $header  = $("<header class='accordion-heading accordion-toggle'></header>");
-  $toggle  = $("<a class='accordion-toggle' data-toggle='collapse'></a>");
+  $toggle  = $("<a class='accordion-toggle collapsed' data-toggle='collapse'></a>");
   $toggle.attr("href", "#" + id).html(item.title);
   $toggle.on("click.stella", loadArticle);
   $body    = $("<div class='accordion-body collapse'></div>").attr("id", id);
