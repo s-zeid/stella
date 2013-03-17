@@ -2,7 +2,7 @@
 /* Copyright notice and X11 License {{{
   
    Stella del Mattino
-   Lets you view your starred items from Google Reader.
+   Lets you view your starred, liked, and shared items from Google Reader.
    
    Copyright (C) 2012-2013 Scott Zeid
    http://code.s.zeid.me/stella-del-mattino/
