@@ -108,9 +108,13 @@ function metaText(item) {
  var sep = " \u00b7 "; // &middot;
  var $meta = $("<p class='muted meta'></p>");
  var $small = $("<small></small>").appendTo($meta);
- // Feed
+ // Feed site
  var $feed = $("<a href=''></a>").attr("href", origin.htmlUrl).text(origin.title);
  $small.append("from ", $feed);
+ // Feed RSS/ATOM URL
+ var $xml = $("<a href=''></a>").attr("href", origin.streamId.replace(/^feed\//, ""))
+            .text("feed");
+ $small.append(" (", $xml, ")");
  // Author
  if (item.author)
   $small.append(sep, "by ", item.author);
