@@ -59,7 +59,9 @@ function parseJSON(json) {
  for (var i = 0; i < items.length; i++) {
   var item = items[i];
   var id   = "item-" + i;
-  var body = (item.summary) ? item.summary : {"direction": "ltr", "content": ""};
+  var body = {"direction": "ltr", "content": ""};
+  if      (item.content) body = item.content;
+  else if (item.summary) body = item.summary;
   ARTICLES[id] = body;
   $article = $("<article class='accordion-group'></article>");
   $header  = $("<header class='accordion-heading accordion-toggle'></header>");
