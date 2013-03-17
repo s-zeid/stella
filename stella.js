@@ -86,6 +86,14 @@ function loadArticle(id) {
 }
 
 $(document).ready(function() {
+ $("header .nav a[href='#']").click(function() { return false; });
+ $("header a[target='_blank']").each(function(i) {
+  var el    = $(this);
+  var title = el.attr("title");
+  var text  = "(Opens in a new tab)";
+  if (title) el.attr("title", text + "  " + title);
+  else       el.attr("title", text);
+ });
  if ($("html").hasClass("static")) {
   parseJSON();
   return;
@@ -94,7 +102,6 @@ $(document).ready(function() {
   alert("Your browser does not support HTML5 file uploads.  I can't continue, sorry.  :(");
   $("header .nav").hide();
  }
- $("header .nav a[href='#']").click(function() { return false; });
  $("#selectFile").click(selectFile);
  $("#file").change(loadFile);
 });
