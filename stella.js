@@ -45,7 +45,7 @@ function loadFile() {
   readFile(files[0], function(e, info) {
    $("#json").text(info.data);
    parseJSON();
-  });
+  }, false, true);
  }
 }
 
@@ -109,7 +109,7 @@ $(document).ready(function() {
 });
 
 /// Utilities ///
-function readFile(file, onload, dataURI) {
+function readFile(file, onload, dataURI, text) {
  var reader = new FileReader();
  reader.onload = function(e) {
   var info = {
@@ -120,6 +120,8 @@ function readFile(file, onload, dataURI) {
  }
  if (dataURI)
   reader.readAsDataURL(file);
+ else if (text)
+  reader.readAsText(file);
  else
   reader.readAsBinaryString(file);
  return reader;
