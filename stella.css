@@ -60,6 +60,10 @@ article header > :not(.collapsed) {
  font-weight: bold;
 }
 
+a:focus {
+ outline: none;
+}
+
 blockquote p {
  font-size: inherit;
 }
