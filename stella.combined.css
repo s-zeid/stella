@@ -932,6 +932,7 @@ article:first-child {
 }
 
 article > header > a > .row {
+ display: block;
  margin-left: 0;
 }
 article > header > a:not(.collapsed) > .row > .title {
@@ -947,6 +948,10 @@ article > header > a > .row > .feed {
 }
 article > header > a > .row > .date {
  text-align: right;
+}
+
+article > header + div {
+ clear: both;
 }
 
 a:focus {
