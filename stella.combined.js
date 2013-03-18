@@ -78,6 +78,7 @@ function parseJSON(json, name) {
  if (json === "") return;
  var parsed = JSON.parse(json);
  $("#jsonTitle").show().text(parsed.title);
+ document.title = parsed.title;
  var items = parsed.items;
  var $articles = $("<div class='accordion'></div>").appendTo($("#articles").empty());
  for (var i = 0; i < items.length; i++) {
