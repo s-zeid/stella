@@ -31,8 +31,12 @@
    
 }}}*/
 
-var CAN_UPLOAD_FILES = ["function", "object"].indexOf($.type(FileReader)) >= 0;
+var CAN_OPEN_FILES = ["function", "object"].indexOf($.type(FileReader)) >= 0;
+var CAN_SAVE_FILES = ["function", "object"].indexOf($.type(Blob)) >= 0;
 var ARTICLES = {};
+var STATIC_TEMPLATE = "";
+var STATIC_JSON_PLACEHOLDER = "___STELLA_DEL_MATTINO"+"_"+"INSERT_JSON_HERE___";
+var STATIC_NAME_PLACEHOLDER = "___STELLA_DEL_MATTINO"+"_"+"INSERT_NAME_HERE___";
 
 function selectFile() {
  $("#file").click();
@@ -43,14 +47,16 @@ function loadFile() {
  var files = $(this)[0].files;
  if ($.type(files.length) === "number" && files.length) {
   readFile(files[0], function(e, info) {
+   $("#json").attr("title", info.name);
    $("#json").text(info.data);
    parseJSON();
-  }, false, true);
+  }, "UTF-8");
  }
 }
 
-function parseJSON(json) {
+function parseJSON(json, name) {
  if (typeof(json) === "undefined") json = $("#json").text();
+ if (typeof(name) === "undefined") name = $("#json").attr("title");
  if (json === "") return;
  var parsed = JSON.parse(json);
  $("#jsonTitle").show().text(parsed.title);
@@ -71,6 +77,10 @@ function parseJSON(json) {
   var $content = $("<div class='accordion-inner'></div>");
   $article.append($header.append($toggle)).append($body.append($content));
   $articles.append($article);
+ }
+ if (CAN_SAVE_FILES && !isStatic()) {
+  $("#staticPage").attr("href", makeStaticPage()).attr("download", name + ".html");
+  $("#staticPage").off("click").show();
  }
 }
 
@@ -139,8 +149,50 @@ function metaText(item) {
  return $meta;
 }
 
+function generateStaticTemplate($headCloned, $bodyCloned) {
+ var page = "<!DOCTYPE html>\n<html class=\"static\">\n <head>";
+ var $head = $headCloned.clone(); // in case someone passed an original
+ var $body = $bodyCloned.clone(); // instead of a clone
+ $.get("stella.combined.css", function(data) {
+  $head.children("link[href='stella.combined.css']")
+  .replaceWith($("<style type='text/css'></style>").text(data));
+  $.get("stella.combined.js", function(data) {
+   $head.children("script[src='stella.combined.js']")
+   .replaceWith($("<script type='text/javascript'><"+"/script>").text(data));
+   page += $head.html() + "\n </head>\n <body>";
+   $body.children("#json").text(STATIC_JSON_PLACEHOLDER);
+   $body.children("#json").attr("title", STATIC_NAME_PLACEHOLDER);
+   page += $body.html().replace(/[\n ]+$/gm, "");
+   page += "\n </body>\n</html>\n";
+   //page = page.replace(/\xC2\xA9|\u00A9/gi, "&copy;");
+   //page = page.replace(/#/g, "\x2523");
+   //page = page.replace(/&/g, "\x2526");
+   ///*del*/
+   //page = page.replace(/\/\*del\*\/(.|\n)*?\/\*\/del\*\//g, "");
+   ///*/del*/return page.replace(/\x0D\x0A|\x0D|\x0A/g, "\x250A");
+   STATIC_TEMPLATE = page;
+  }, "html");
+ }, "html");
+}
+
+function makeStaticPage(json, name) {
+ if (typeof(json) === "undefined") json = $("#json").text();
+ if (typeof(name) === "undefined") name = $("#json").attr("title");
+ var page = STATIC_TEMPLATE;
+ page = page.replace(STATIC_JSON_PLACEHOLDER, htmlEscape(json));
+ page = page.replace(STATIC_NAME_PLACEHOLDER, htmlEscape(name));
+ var blob = new Blob([page], {"type": "text/html"});
+ var url = URL.createObjectURL(blob);
+ return url;
+}
+
+function isStatic() {
+ return $("html").hasClass("static");
+}
+
 $(document).ready(function() {
  $("header .nav a[href='#']").click(function() { return false; });
+ $("header .nav a.hide").hide();
  $("header a[target='_blank']").each(function(i) {
   var el    = $(this);
   var title = el.attr("title");
@@ -148,20 +200,29 @@ $(document).ready(function() {
   if (title) el.attr("title", text + "  " + title);
   else       el.attr("title", text);
  });
- if ($("html").hasClass("static")) {
-  parseJSON();
-  return;
- }
- if (!CAN_UPLOAD_FILES) {
-  alert("Your browser does not support HTML5 file uploads.  I can't continue, sorry.  :(");
-  $("header .nav").hide();
+ generateStaticTemplate($(document.head).clone(), $(document.body).clone());
+ if (!CAN_OPEN_FILES) {
+  if (!isStatic())
+   alert("Your browser doesn't support HTML5 file uploads.  I can't continue, sorry.  :(");
+  $("#selectFile").hide();
  }
  $("#selectFile").click(selectFile);
  $("#file").change(loadFile);
+ if (isStatic()) {
+  parseJSON();
+ }
 });
 
 /// Utilities ///
-function readFile(file, onload, dataURI, text) {
+function htmlEscape(s) {
+ return s.replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
+function readFile(file, onload, encoding) {
  var reader = new FileReader();
  reader.onload = function(e) {
   var info = {
@@ -170,12 +231,14 @@ function readFile(file, onload, dataURI, text) {
   };
   onload(e, info);
  }
- if (dataURI)
+ if (encoding === "data:")
   reader.readAsDataURL(file);
- else if (text)
-  reader.readAsText(file);
- else
+ else if ($.type(encoding) === "string")
+  reader.readAsText(file, encoding);
+ else if (encoding === null)
   reader.readAsBinaryString(file);
+ else
+  reader.readAsText(file, "UTF-8");
  return reader;
 }
 
