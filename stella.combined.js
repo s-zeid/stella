@@ -197,8 +197,8 @@ function makeStaticPage(json, name) {
  if (typeof(json) === "undefined") json = $("#json").text();
  if (typeof(name) === "undefined") name = $("#json").attr("title");
  var page = STATIC_TEMPLATE;
- page = page.replace(STATIC_JSON_PLACEHOLDER, htmlEscape(json, false));
- page = page.replace(STATIC_NAME_PLACEHOLDER, htmlEscape(name));
+ page = page.replace(STATIC_JSON_PLACEHOLDER, function(){return htmlEscape(json, false)});
+ page = page.replace(STATIC_NAME_PLACEHOLDER, function(){return htmlEscape(name)});
  var blob = new Blob([page], {"type": "text/html"});
  var url = URL.createObjectURL(blob);
  return url;
