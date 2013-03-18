@@ -197,7 +197,7 @@ function makeStaticPage(json, name) {
  if (typeof(json) === "undefined") json = $("#json").text();
  if (typeof(name) === "undefined") name = $("#json").attr("title");
  var page = STATIC_TEMPLATE;
- page = page.replace(STATIC_JSON_PLACEHOLDER, htmlEscape(json));
+ page = page.replace(STATIC_JSON_PLACEHOLDER, htmlEscape(json, false));
  page = page.replace(STATIC_NAME_PLACEHOLDER, htmlEscape(name));
  var blob = new Blob([page], {"type": "text/html"});
  var url = URL.createObjectURL(blob);
@@ -232,12 +232,14 @@ $(document).ready(function() {
 });
 
 /// Utilities ///
-function htmlEscape(s) {
- return s.replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
+function htmlEscape(s, quotes) {
+ if (typeof(quotes) === "undefined") quotes = true;
+ s = s.replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+ if (quotes)
+  s = s.replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+ return s;
 }
 
 function readFile(file, onload, encoding) {
