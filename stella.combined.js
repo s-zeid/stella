@@ -80,6 +80,7 @@ function parseJSON(json, name) {
  var title = $("<div></div>").html(parsed.title).text();
  $("#jsonTitle").show().text(title);
  document.title = title;
+ $("#intro").hide();
  var type = "received";
  if (parsed.id.match(/\/starred$/)) type = "starred";
  if (parsed.id.match(/\/like$/)) type = "liked";
@@ -220,6 +221,7 @@ function isStatic() {
 }
 
 $(document).ready(function() {
+ generateStaticTemplate($(document.head).clone(), $(document.body).clone());
  $("header .nav a[href='#']").click(function() { return false; });
  $("header .nav a.hide").hide();
  $("header a[target='_blank']").each(function(i) {
@@ -229,7 +231,7 @@ $(document).ready(function() {
   if (title) el.attr("title", text + "  " + title);
   else       el.attr("title", text);
  });
- generateStaticTemplate($(document.head).clone(), $(document.body).clone());
+ $("#intro a").attr("target", "_blank");
  if (!CAN_OPEN_FILES) {
   if (!isStatic())
    alert("Your browser doesn't support HTML5 file uploads.  I can't continue, sorry.  :(");

@@ -72,5 +72,43 @@
   </header>
   <pre id="json" class="hide"></pre>
   <div id="articles" class="container"></div>
+  <div id="intro" class="container hero-unit">
+   <p>So if you haven&#8217;t heard already,
+    <a href='http://googlereader.blogspot.com/2013/03/powering-down-google-reader.html'>
+    Google Reader is shutting down on July 1, 2013</a>.  However, until then, you can
+    <a href='https://goo.gl/zijsh'>take your data out using Google Takeout</a> and
+    you&#8217;ll have all your subscriptions and starred, liked, and shared articles. 
+    The problem is that the article lists are JSON files with a custom schema that
+    there aren&#8217;t (as far as I know) any user-friendly parsers for, so I made one.
+   </p> 
+   <p>
+    <a href='http://stella.s.zeid.me/'>Stella del Mattino</a> (you're looking at it
+    right now!) runs entirely in your modern, standards-compliant,
+    <a href='https://developer.mozilla.org/en-US/docs/DOM/FileReader'>HTML5 FileReader
+    API</a>-supporting Web browser (you are using
+    <a href='https://www.mozilla.org/en-US/firefox/fx/'>one</a>, right?) and lets you
+    view any Google Reader article list in JSON format, including your starred, liked,
+    shared, and notes lists, as well as any subscriptions you&#8217;ve exported in JSON
+    format (<a href="http://s.zeid.me/blog/2013/03/18/fun-with-google-reader-json-files/#exporting-feeds-as-json-files">more
+    on that here</a>).  All you have to do is click &#8220;Select JSON file&#8221;,
+    select your file, and start reading!  You can also save a static HTML page which
+    you can view offline.
+   </p>
+   <p>
+    It&#8217;s worth noting that Google Reader JSON files <em>do</em> contain the
+    full contents of each article, and Stella does let you view those.
+   </p>
+   <p>
+    <strong>Your JSON files stay on your computer.  No data is sent to my server.</strong> 
+    (I promise.  I can't afford the load!)
+   </p>
+   <p>
+    <a href='http://code.s.zeid.me/stella-del-mattino'>The source code to Stella is
+    available on Bitbucket</a> and is released under the X11 License.  If you modify
+    the JavaScript or CSS files, run <code>make</code> to regenerate the
+    <code>stella.combined.{js,css}</code> files; otherwise, you won&#8217;t see your
+    changes.
+   </p>
+  </div>
  </body>
 </html>
