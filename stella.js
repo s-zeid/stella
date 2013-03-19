@@ -59,9 +59,10 @@ function parseJSON(json, name) {
  if (typeof(name) === "undefined") name = $("#json").attr("title");
  if (json === "") return;
  var parsed = JSON.parse(json);
- $("#jsonTitle").show().text(parsed.title);
- document.title = parsed.title;
- var type = "marked";
+ var title = $("<div></div>").html(parsed.title).text();
+ $("#jsonTitle").show().text(title);
+ document.title = title;
+ var type = "received";
  if (parsed.id.match(/\/starred$/)) type = "starred";
  if (parsed.id.match(/\/like$/)) type = "liked";
  if (parsed.id.match(/\/broadcast(-friends)?$/)) type = "shared";
@@ -92,10 +93,11 @@ function parseJSON(json, name) {
 
 function headerText(item) {
  var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
+ var originTitle = $("<div></div>").html(origin.title).text();
  var date = dateToLocalISOString(new Date(item.published * 1000));
  var dateShort = date.match("^[0-9]{4}-[0-9]{2}-[0-9]{2}")[0];
  var $row   = $("<span class='row'></span>");
- var $feed  = $("<span class='span2 feed'></span>").text(origin.title);
+ var $feed  = $("<span class='span2 feed'></span>").text(originTitle);
  $feed.attr("title", $feed.text());
  var $title = $("<span class='span7 title'></span>").html(item.title);
  $title.attr("title", $title.text());
@@ -121,13 +123,14 @@ function loadArticle(id) {
 }
 
 function metaText(item, type) {
- if (typeof(type) === "undefined") type = "marked";
+ if (typeof(type) === "undefined") type = "received";
  var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
  var sep = " \u00b7 "; // &middot;
  var $meta = $("<p class='muted meta'></p>");
  var $small = $("<small></small>").appendTo($meta);
  // Feed site
- var $feed = $("<a href=''></a>").attr("href", origin.htmlUrl).text(origin.title);
+ var originTitle = $("<div></div>").html(origin.title).text();
+ var $feed = $("<a href=''></a>").attr("href", origin.htmlUrl).text(originTitle);
  $small.append("from ", $feed);
  // Feed RSS/ATOM URL
  var $xml = $("<a href=''></a>").attr("href", origin.streamId.replace(/^feed\//, ""))
