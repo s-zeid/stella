@@ -116,7 +116,8 @@ function loadArticle(id) {
  var type = ARTICLES[id].type;
  var $body = $("#"+id);
  var $inner = $body.children(".accordion-inner");
- var $content = $("<div></div>").attr("id", id + "-content").html(body.content);
+ var $content = $("<div class='span11 content'></div>").attr("id", id + "-content");
+ $content.html(body.content);
  $inner.append(metaText(item, type)).append($content);
  $inner.find("a").attr("target", "_blank");
  $body.css("direction", body.direction);
@@ -127,7 +128,7 @@ function metaText(item, type) {
  if (typeof(type) === "undefined") type = "received";
  var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
  var sep = " \u00b7 "; // &middot;
- var $meta = $("<p class='muted meta'></p>");
+ var $meta = $("<p class='span11 muted meta'></p>");
  var $small = $("<small></small>").appendTo($meta);
  // Feed site
  var originTitle = $("<div></div>").html(origin.title).text();
