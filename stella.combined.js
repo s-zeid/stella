@@ -79,6 +79,11 @@ function parseJSON(json, name) {
  var parsed = JSON.parse(json);
  $("#jsonTitle").show().text(parsed.title);
  document.title = parsed.title;
+ var type = "marked";
+ if (parsed.id.match(/\/starred$/)) type = "starred";
+ if (parsed.id.match(/\/like$/)) type = "liked";
+ if (parsed.id.match(/\/broadcast(-friends)?$/)) type = "shared";
+ if (parsed.id.match(/\/post$/)) type = "noted";
  var items = parsed.items;
  var $articles = $("<div class='accordion'></div>").appendTo($("#articles").empty());
  for (var i = 0; i < items.length; i++) {
@@ -87,7 +92,7 @@ function parseJSON(json, name) {
   var body = {"direction": "ltr", "content": ""};
   if      (item.content) body = item.content;
   else if (item.summary) body = item.summary;
-  ARTICLES[id] = {"item": item, "body": body};
+  ARTICLES[id] = {"item": item, "body": body, "type": type};
   var $article = $("<article class='accordion-group'></article>");
   var $header  = $("<header class='accordion-heading accordion-toggle'></header>");
   var $toggle  = $("<a class='accordion-toggle collapsed' data-toggle='collapse'></a>");
@@ -123,16 +128,18 @@ function loadArticle(id) {
  }
  var item = ARTICLES[id].item;
  var body = ARTICLES[id].body;
+ var type = ARTICLES[id].type;
  var $body = $("#"+id);
  var $inner = $body.children(".accordion-inner");
  var $content = $("<div></div>").attr("id", id + "-content").html(body.content);
- $inner.append(metaText(item)).append($content);
+ $inner.append(metaText(item, type)).append($content);
  $inner.find("a").attr("target", "_blank");
  $body.css("direction", body.direction);
  console.log("Loaded " + id);
 }
 
-function metaText(item) {
+function metaText(item, type) {
+ if (typeof(type) === "undefined") type = "marked";
  var origin = (item.origin) ? item.origin: {"streamId": "", "title": "", "htmlUrl": ""};
  var sep = " \u00b7 "; // &middot;
  var $meta = $("<p class='muted meta'></p>");
@@ -157,7 +164,7 @@ function metaText(item) {
  var starDateShort = starDate.match("^[0-9]{4}-[0-9]{2}-[0-9]{2}")[0];
  var $starDate = $("<time></time>").attr("datetime", starDate).attr("title", starDate)
                  .text(starDateShort);
- $small.append(sep, "starred on ", $starDate);
+ $small.append(sep, type + " on ", $starDate);
  // Original URL
  if (item.alternate && item.alternate.length && item.alternate.length > 0
      && item.alternate[0].href) {
