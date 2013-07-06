@@ -11,7 +11,7 @@ stella.combined.js: html5shiv.js jquery.min.js bootstrap/bootstrap.min.js stella
 	 first=0
 	done
 
-stella.combined.css: ubuntu.css bootstrap/bootstrap.min.css stella.css
+stella.combined.css: webfonts.css bootstrap/bootstrap.min.css stella.css
 	rm -f $@
 	first=1
 	for i in $^; do
