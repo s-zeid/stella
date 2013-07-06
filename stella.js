@@ -172,6 +172,7 @@ function generateStaticTemplate($headCloned, $bodyCloned) {
   $.get("stella.combined.js", function(data) {
    $head.children("script[src='stella.combined.js']")
    .replaceWith($("<script type='text/javascript'><"+"/script>").text("\n" + data + "  "));
+   $head.children("script[src*='analytics']").remove();
    page += "\n <head>\n  " + trimString($head.html()) + "\n </head>";
    $body.children("#json").text(STATIC_JSON_PLACEHOLDER);
    $body.children("#json").attr("title", STATIC_NAME_PLACEHOLDER);
