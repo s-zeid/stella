@@ -3,7 +3,7 @@ Stella
 Lets you view your starred, liked, and shared items from Google Reader.
 
 Copyright © 2012-2013 Scott Zeid.  Released under the X11 License.  
-<http://code.s.zeid.me/stella-del-mattino>
+<http://code.s.zeid.me/stella>
 
  
 
