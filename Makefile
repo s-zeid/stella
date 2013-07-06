@@ -19,3 +19,8 @@ stella.combined.css: webfonts.css bootstrap/bootstrap.min.css stella.css
 	 cat $$i >> $@
 	 first=0
 	done
+
+.PHONY: clean
+
+clean:
+	rm -f stella.combined.js stella.combined.css
