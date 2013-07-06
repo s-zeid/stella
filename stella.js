@@ -163,26 +163,26 @@ function metaText(item, type) {
 }
 
 function generateStaticTemplate($headCloned, $bodyCloned) {
- var page = "<!DOCTYPE html>\n<html class=\"static\">\n <head>";
+ var page = "<!DOCTYPE html><!-- vim: set fdm=marker: -->\n\n<html class=\"static\">";
  var $head = $headCloned.clone(); // in case someone passed an original
  var $body = $bodyCloned.clone(); // instead of a clone
  $.get("stella.combined.css", function(data) {
   $head.children("link[href='stella.combined.css']")
-  .replaceWith($("<style type='text/css'></style>").text(data));
+  .replaceWith($("<style type='text/css'></style>").text("\n" + data + "  "));
   $.get("stella.combined.js", function(data) {
    $head.children("script[src='stella.combined.js']")
-   .replaceWith($("<script type='text/javascript'><"+"/script>").text(data));
-   page += $head.html() + "\n </head>\n <body>";
+   .replaceWith($("<script type='text/javascript'><"+"/script>").text("\n" + data + "  "));
+   page += "\n <head>\n  " + trimString($head.html()) + "\n </head>";
    $body.children("#json").text(STATIC_JSON_PLACEHOLDER);
    $body.children("#json").attr("title", STATIC_NAME_PLACEHOLDER);
-   page += $body.html().replace(/[\n ]+$/gm, "");
-   page += "\n </body>\n</html>\n";
+   page += "\n <body>\n  " + trimString($body.html()) + "\n </body>";
    //page = page.replace(/\xC2\xA9|\u00A9/gi, "&copy;");
    //page = page.replace(/#/g, "\x2523");
    //page = page.replace(/&/g, "\x2526");
    ///*del*/
    //page = page.replace(/\/\*del\*\/(.|\n)*?\/\*\/del\*\//g, "");
    ///*/del*/return page.replace(/\x0D\x0A|\x0D|\x0A/g, "\x250A");
+   page += "\n</html>\n";
    STATIC_TEMPLATE = page;
   }, "html");
  }, "html");
@@ -256,6 +256,10 @@ function readFile(file, onload, encoding) {
  else
   reader.readAsText(file, "UTF-8");
  return reader;
+}
+
+function trimString(s) {
+ return s.replace(/^[\r\n\t\0 ]+/g, "").replace(/[\r\n\t\0 ]+$/g, "")
 }
 
 // Copypasta from MDN
