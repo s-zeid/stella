@@ -21,8 +21,12 @@ your Takeout archive.
 
 A live instance of Stella is hosted on my site at <http://stella.s.zeid.me/>.
 
+The favicon is a Tango Project icon, released under the [Creative Commons
+Attribution-ShareAlike 2.5 license][cc-by-sa-2.5].
 
 
 
-[notice]:   http://googlereader.blogspot.com/2013/03/powering-down-google-reader.html
-[takeout]:  https://goo.gl/zijsh
+
+[notice]:        http://googlereader.blogspot.com/2013/03/powering-down-google-reader.html
+[takeout]:       https://goo.gl/zijsh
+[cc-by-sa-2.5]:  https://creativecommons.org/licenses/by-sa/2.5/deed.en
