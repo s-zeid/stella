@@ -118,6 +118,15 @@ function loadArticle(id) {
  var $inner = $body.children(".accordion-inner");
  var $content = $("<div class='span11 content'></div>").attr("id", id + "-content");
  $content.html(body.content);
+ $content.find("iframe").each(function() {
+  var uri = $(this).uri();
+  if (uri.hostname() === "reader.googleusercontent.com" &&
+      uri.path() === "/reader/embediframe") {
+   var realSrc = $(this).uri().query(true).src;
+   if ($.type(realSrc) === "string" && realSrc)
+    $(this).attr("src", realSrc);
+  }
+ });
  $inner.append(metaText(item, type)).append($content);
  $inner.find("a").attr("target", "_blank");
  $body.css("direction", body.direction);
