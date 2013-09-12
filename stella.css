@@ -85,6 +85,8 @@ article:first-child {
 }
 
 #intro {
+ width: 820px;
+ border-radius: 0;
  background: #f5f5f5;
  font-size: 1em;
 }
