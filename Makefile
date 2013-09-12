@@ -8,6 +8,7 @@ stella.combined.js: html5shiv.js jquery.min.js URI.min.js bootstrap/bootstrap.mi
 	first=1
 	for i in $^; do
 	 [ $$first -eq 0 ] && echo >> $@
+	 echo "/* ==== $$i ==== */" >> $@
 	 cat $$i >> $@
 	 first=0
 	done
@@ -17,6 +18,7 @@ stella.combined.css: webfonts.css bootstrap/bootstrap.min.css stella.css
 	first=1
 	for i in $^; do
 	 [ $$first -eq 0 ] && echo >> $@
+	 echo "/* ==== $$i ==== */" >> $@
 	 cat $$i >> $@
 	 first=0
 	done
