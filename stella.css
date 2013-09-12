@@ -97,6 +97,10 @@ blockquote p {
  font-size: inherit;
 }
 
+iframe {
+ border-style: none;
+}
+
 img {
  vertical-align: bottom;
 }
