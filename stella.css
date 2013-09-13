@@ -35,6 +35,20 @@
  display: none;
 }
 
+body.intro-visible > header > nav .container {
+ max-width: 820px;
+}
+
+body.articles-visible > header > nav .container {
+ max-width: 870px;
+}
+
+@media (min-width: 1200px) {
+ body.articles-visible > header > nav .container {
+  max-width: 1080px;
+ }
+}
+
 #jsonTitle {
  font-weight: bold;
 }

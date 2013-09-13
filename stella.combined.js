@@ -169,6 +169,7 @@ function parseJSON(json, name) {
  $("#jsonTitle").show().text(title);
  document.title = title;
  $("#intro").hide();
+ $("body").removeClass("intro-visible").addClass("articles-visible");
  var type = "received";
  if (parsed.id.match(/\/starred$/)) type = "starred";
  if (parsed.id.match(/\/like$/)) type = "liked";
@@ -291,7 +292,8 @@ function generateStaticTemplate($headCloned, $bodyCloned) {
    page += "\n <head>\n  " + trimString($head.html()) + "\n </head>";
    $body.children("#json").text(STATIC_JSON_PLACEHOLDER);
    $body.children("#json").attr("title", STATIC_NAME_PLACEHOLDER);
-   page += "\n <body>\n  " + trimString($body.html()) + "\n </body>";
+   page += "\n <body class=\"" + htmlEscape($body.attr("class"), true) + "\">\n  "
+           + trimString($body.html()) + "\n </body>";
    //page = page.replace(/\xC2\xA9|\u00A9/gi, "&copy;");
    //page = page.replace(/#/g, "\x2523");
    //page = page.replace(/&/g, "\x2526");
