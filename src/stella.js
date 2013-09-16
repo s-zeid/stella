@@ -179,10 +179,10 @@ function generateStaticTemplate($headCloned, $bodyCloned) {
  var page = "<!DOCTYPE html><!-- vim: set fdm=marker: -->\n\n<html class=\"static\">";
  var $head = $headCloned.clone(); // in case someone passed an original
  var $body = $bodyCloned.clone(); // instead of a clone
- $.get("stella.combined.css", function(data) {
+ $.get("stella.combined.css?"+STELLA_CACHEBUSTER, function(data) {
   $head.children("link[href='stella.combined.css?"+STELLA_CACHEBUSTER+"']")
   .replaceWith($("<style type='text/css'></style>").text("\n" + data + "  "));
-  $.get("stella.combined.js", function(data) {
+  $.get("stella.combined.js?"+STELLA_CACHEBUSTER, function(data) {
    $head.children("script[src='stella.combined.js?"+STELLA_CACHEBUSTER+"']")
    .replaceWith($("<script type='text/javascript'><"+"/script>").text("\n" + data + "  "));
    $head.children("script[src*='analytics']").remove();
