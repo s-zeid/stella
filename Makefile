@@ -2,6 +2,7 @@
 
 all: stella.html stella.combined.js stella.combined.css
 
+.PHONY: stella.html
 stella.html:        src/stella.html
 	sed -e 's/__cachebuster__/'`date +%s`'/g' < $^ > $@
 
