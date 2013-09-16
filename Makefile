@@ -3,7 +3,7 @@
 all: stella.html stella.combined.js stella.combined.css
 
 stella.html:        src/stella.html
-	cp -a $^ $@
+	sed -e 's/__cachebuster__/'`date +%s`'/g' < $^ > $@
 
 stella.combined.js: lib/html5shiv.js lib/jquery.min.js lib/URI.min.js \
                     lib/bootstrap/bootstrap.min.js \
