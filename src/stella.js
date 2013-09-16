@@ -180,10 +180,10 @@ function generateStaticTemplate($headCloned, $bodyCloned) {
  var $head = $headCloned.clone(); // in case someone passed an original
  var $body = $bodyCloned.clone(); // instead of a clone
  $.get("stella.combined.css?"+STELLA_CACHEBUSTER, function(data) {
-  $head.children("link[href='stella.combined.css?"+STELLA_CACHEBUSTER+"']")
+  $head.children("link[href^='stella.combined.css']")
   .replaceWith($("<style type='text/css'></style>").text("\n" + data + "  "));
   $.get("stella.combined.js?"+STELLA_CACHEBUSTER, function(data) {
-   $head.children("script[src='stella.combined.js?"+STELLA_CACHEBUSTER+"']")
+   $head.children("script[src^='stella.combined.js']")
    .replaceWith($("<script type='text/javascript'><"+"/script>").text("\n" + data + "  "));
    $head.children("script[src*='analytics']").remove();
    page += "\n <head>\n  " + trimString($head.html()) + "\n </head>";
