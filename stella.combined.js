@@ -144,7 +144,7 @@ var STATIC_TEMPLATE = "";
 var STATIC_JSON_PLACEHOLDER = "___STELLA_DEL_MATTINO"+"_"+"INSERT_JSON_HERE___";
 var STATIC_NAME_PLACEHOLDER = "___STELLA_DEL_MATTINO"+"_"+"INSERT_NAME_HERE___";
 
-if (typeof(STELLA_CACHEBUSTER) === "undefined")
+if (typeof(STELLA_CACHEBUSTER) === "undefined" || STELLA_CACHEBUSTER === "__cachebuster__")
  STELLA_CACHEBUSTER = String(Math.round(Date.now() / 1000));
 
 function selectFile() {
