@@ -1,0 +1,131 @@
+<!DOCTYPE html><!-- vim: set fdm=marker: -->
+
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <!-- Copyright notice and X11 License {{{
+  
+   Stella
+   Lets you view your starred, liked, and shared items from Google Reader.
+   
+   Copyright (C) 2012-2013 Scott Zeid
+   http://code.s.zeid.me/stella
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+   
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE.
+   
+   Except as contained in this notice, the name(s) of the above copyright holders
+   shall not be used in advertising or otherwise to promote the sale, use or
+   other dealings in this Software without prior written authorization.
+  
+  }}}-->
+  <title>
+   Stella &ndash; View Google Reader starred, liked, and shared articles
+  </title>
+  <!-- Favicon {{{ -->
+   <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcM8QAHTL8ABzzLoAb8w3AAAAAAAAAAAAAAAAAAAAAABjyzYAYtG2AFzO8wBZzBQAAAAAAAAAAAAAAAAAAAAAAHnIKgyBz/ZLven+DH7Q9QByzb4AbcsxAGnNMwBpzr8JbtH0Opzp/g1r0vYAYM8wAAAAAAAAAAAAAAAAAAAAAAB6yBcIg832hOT2/3bd9f9Ctuf+DHzQ9Qx60PU6p+j9XcP1/2DB9v8KbdD1AGHKHQAAAAAAAAAAAAAAAAAAAAAAgL8EAHzJ/oHo9v8X0O//R9Xz/3Lb9v9t1vb/PsXz/w2v8f9kyPb/AmjM/ABgvwgAAAAAAAAAAAAAAAAAAAAAAAAAAACDyfN75fT/HNnv/wDO7f8CyO7/AsHu/wC77/8Jt/D/Zsv1/wBrzPcAAAAAAAAAAAAAAAAAAAAAAAAAAACGwhUBhsn0heb0/0vg8v8O1u7/ANHt/wDK7f8AxO7/DsLv/2rR9P8Bccz2AG3OFQAAAAAAAAAAAAAAAACIzA8AjsnYV8vn/Ibq9/9Y4/P/TuHz/zXd8f8e2e//DtDu/wHH7v9b1vT/ObHo+gBzzdoAZswPAAAAAACZzAoAk8jQScbj+pjt+P9s5vX/YeT0/1fj8/9N4fL/Q9/y/zjd8f8r2PD/G87v/2rc9f8xq+P5AHTM0wBmzAoAmMivPMDe+bXz+v+g7/n/hur3/3vp9f9m5fT/VuPz/0zh8v9O4vL/XOPz/2Lk9P925PX/feL2/yef3vgAdc2vAJzGwQSZx/ohp9DxMLLW70G83fJTyOb7mu33/2bm9P9d5PP/jur2/0jB5fs1rt3xI5/X7hWN0fACecr6AHjNwQAAAAAAAAAAAJvIFwCUxCsAlMZDAJPJrlPK5/qD6vb/e+n2/1DH5vsAh8ixAIHIRQCAyywAesgXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACVyhgKmcv0sPH5/6vw+f8OlMv0AIXMGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJrHroDd7v+J3+//AJPJrgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXxjETpM/yEqHN8wCRxSwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ3GrwCcyKoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAMPDAADAAwAAwAMAAMADAADgBwAAwAMAAIABAAAAAAAAAAAAAAAAAADAAwAA+B8AAPw/AAD8PwAA/n8AAA==" />
+  <!-- }}} -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="stella.combined.css" />
+  <script type="text/javascript" src="stella.combined.js"></script>
+  <script type="text/javascript">
+   var GA_ID = "UA-382238-13";
+   var GA_HOSTS = ["stella.s.zeid.me"]
+   
+   if (GA_HOSTS.indexOf(document.location.host) > -1) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', GA_ID, document.location.host);
+    ga('send', 'pageview');
+   }
+  </script>
+ </head>
+ <body class="intro-visible">
+  <header>
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner"><div class="container">
+     <a class="brand" lang="it-IT" href="https://youtu.be/2JLcckaF3F0" target="_blank"
+        title="Stella is named after a song by Ludovico Einaudi.">
+      Stella
+     </a>
+     <form id="input" class="navbar-form form-inline pull-left hide">
+      <input type="file" name="file" id="file" />
+     </form>
+     <ul class="nav">
+      <li><a href="#" id="jsonTitle" class="hide"></a></li>
+      <li>
+       <a href="#" id="staticPage" class="hide" download target="_blank"
+          title="You may need to right-click this and choose Save As depending on your browser.">
+        Save as static page
+       </a>
+      </li>
+      <li><a href="#" id="selectFile">Select JSON file</a></li>
+      <li>
+       <a href="http://code.s.zeid.me/stella" target="_blank">
+        Bitbucket project
+       </a>
+      </li>
+     </ul>
+    </div></div>
+   </nav>
+  </header>
+  <pre id="json" class="hide"></pre>
+  <div id="articles" class="container"></div>
+  <div id="intro" class="container hero-unit">
+   <p>
+    <a href='http://googlereader.blogspot.com/2013/03/powering-down-google-reader.html'>
+    Google Reader was shut down after July 1, 2013</a>, and users were able to use
+    Google Takeout to save their data, including subscriptions and starred, liked,
+    and shared articles until July 15.  However, the article lists are JSON files
+    with a custom format for which there weren&#8217;t (as far as I know) any
+    user-friendly viewers, so I made one.
+   </p> 
+   <p>
+    <a href='http://stella.s.zeid.me/'>Stella</a> (you're looking at it right now!)
+    runs entirely in your modern, standards-compliant,
+    <a href='https://developer.mozilla.org/en-US/docs/DOM/FileReader'>HTML5 FileReader
+    API</a>-supporting Web browser (you are using
+    <a href='https://www.mozilla.org/en-US/firefox/fx/'>one</a>, right?) and lets you
+    view any Google Reader article list in JSON format, including your starred, liked,
+    shared, and notes lists, as well as any subscriptions you&#8217;ve exported in JSON
+    format (<a href="http://s.zeid.me/blog/2013/03/18/fun-with-google-reader-json-files/#exporting-feeds-as-json-files">more
+    on that here</a>).  All you have to do is click &#8220;Select JSON file&#8221;,
+    select your file, and start reading!  You can also save a static HTML page which
+    you can view offline.
+   </p>
+   <p>
+    It&#8217;s worth noting that Google Reader JSON files <em>do</em> contain the
+    full contents of each article, and Stella does let you view those.
+   </p>
+   <p>
+    <strong>Your JSON files stay on your computer.  No data is sent to my server.</strong> 
+    (I promise.  I can't afford the load!)
+   </p>
+   <p>
+    <a href='http://code.s.zeid.me/stella'>The source code to Stella is available on
+    Bitbucket</a> and is released under the X11 License.  If you modify the
+    JavaScript or CSS files, run <code>make</code> to regenerate the
+    <code>stella.combined.{js,css}</code> files; otherwise, you won&#8217;t see your
+    changes.
+   </p>
+  </div>
+ </body>
+</html>

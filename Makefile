@@ -1,9 +1,13 @@
 .ONESHELL:
 
-all: stella.combined.js stella.combined.css
+all: stella.html stella.combined.js stella.combined.css
 
-stella.combined.js: html5shiv.js jquery.min.js URI.min.js bootstrap/bootstrap.min.js \
-                    stella.js
+stella.html:        src/stella.html
+	cp -a $^ $@
+
+stella.combined.js: lib/html5shiv.js lib/jquery.min.js lib/URI.min.js \
+                    lib/bootstrap/bootstrap.min.js \
+                    src/stella.js
 	rm -f $@
 	first=1
 	for i in $^; do
@@ -13,7 +17,7 @@ stella.combined.js: html5shiv.js jquery.min.js URI.min.js bootstrap/bootstrap.mi
 	 first=0
 	done
 
-stella.combined.css: webfonts.css bootstrap/bootstrap.min.css stella.css
+stella.combined.css: lib/bootstrap/bootstrap.min.css src/webfonts.css src/stella.css
 	rm -f $@
 	first=1
 	for i in $^; do
@@ -26,4 +30,4 @@ stella.combined.css: webfonts.css bootstrap/bootstrap.min.css stella.css
 .PHONY: clean
 
 clean:
-	rm -f stella.combined.js stella.combined.css
+	rm -f stella.html stella.combined.js stella.combined.css
