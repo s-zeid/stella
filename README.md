@@ -2,8 +2,8 @@ Stella
 ======
 Lets you view your starred, liked, and shared items from Google Reader.
 
-Copyright © 2012-2013 Scott Zeid.  Released under the X11 License.  
-<http://code.s.zeid.me/stella>
+Copyright © 2012-2015 Scott Zeid.  Released under the X11 License.  
+<https://code.s.zeid.me/stella>
 
  
 
@@ -19,7 +19,7 @@ full contents of each article, so this will let you view that.
 To use Stella, simply click "Select JSON file" and select the JSON file from
 your Takeout archive.
 
-A live instance of Stella is hosted on my site at <http://stella.s.zeid.me/>.
+A live instance of Stella is hosted on my site at <https://stella.s.zeid.me/>.
 
 The favicon is a Tango Project icon, released under the [Creative Commons
 Attribution-ShareAlike 2.5 license][cc-by-sa-2.5].

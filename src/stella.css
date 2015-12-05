@@ -5,7 +5,7 @@
    Lets you view your starred, liked, and shared items from Google Reader.
    
    Copyright (C) 2012-2013 Scott Zeid
-   http://code.s.zeid.me/stella
+   https://code.s.zeid.me/stella
    
    Permission is hereby granted, free of charge, to any person obtaining a copy
    of this software and associated documentation files (the "Software"), to deal
