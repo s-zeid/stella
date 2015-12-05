@@ -2,7 +2,8 @@ Stella
 ======
 Lets you view your starred, liked, and shared items from Google Reader.
 
-Copyright © 2012-2015 Scott Zeid.  Released under the X11 License.  
+Copyright © 2012-2015 [Scott Zeid](https://s.zeid.me/).  
+Released under [the X11 License](https://tldrlegal.com/l/x11).  
 <https://code.s.zeid.me/stella>
 
  
